@@ -1,0 +1,16 @@
+# README
+## Usage
+* Upload the desired file to be processed. 
+* File is save and qeued for processing.
+* on complation of processing the output is saved.
+
+## Gems Used
+* sidekiq: running background processes
+* sinatra', :require => nil    # For the sidekiq web UI
+* pusher: websockets as a service
+* carrierwave: For file upload and saving 
+* smarter_csv: parsing the csv file
+
+## Performance and Scaling Considerations
+* Process file in background job, so we don't hang up the browser
+* Websockets(using pusher) to notify user when file is done processing 

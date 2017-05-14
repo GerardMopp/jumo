@@ -1,0 +1,24 @@
+<table class="table">
+	<thead>
+		<th>Input</th>
+		<th>Output</th>
+		<th>Created Date</th>
+	</thead>
+	<tbody>
+		<% @loans.each do |loan| %>
+			<tr>
+				<td><%= link_to('Input File', loan.input.url, class: 'btn btn-custom') %></td>
+				<td><%= link_to('Output File', loan.output.url, class: 'btn btn-custom') if loan.output.present? %></td>
+				<td><%= loan.created_at.strftime('%d-%b-%Y %H:%M:%S')  %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12">
+			<%= link_to("Back", "/", class: 'btn btn-link' ) %>
+		</div>
+	</div>
+</div>

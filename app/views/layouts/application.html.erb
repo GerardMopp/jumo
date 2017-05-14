@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html class="js">
+<head>
+  <title>Jumo Assessment</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12 text-center">
+				<h1>Jumo Assessment</h1>
+				<%= yield %>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
