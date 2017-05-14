@@ -1,11 +1,30 @@
 
+<% unless @loan.output.present? %>
+	<h3>Processing File</h3>
+	<%= image_tag("rolling") %>
+	<br>
+	<br>
+<% end %>
+
+
 <%= link_to('Input File', @loan.input.url, class: 'btn btn-custom') %>
 <%= link_to('Output File', @loan.output.url, class: 'btn btn-custom') if @loan.output.present? %>
 
-<div class="container">
-	<div class="row">
-		<div class="col-xs-12">
-			<%= link_to("Back", "/", class: 'btn btn-link' ) %> <%= link_to("List", loans_path, class: 'btn btn-link' ) %>
-		</div>
-	</div>
-</div>
+<br>
+<%= link_to("Back", "/", class: 'btn btn-link' ) %> <%= link_to("List", loans_path, class: 'btn btn-link' ) %>
+
+
+<script>
+
+		var pusher = new Pusher('<%= Pusher.key %>'); // uses your APP KEY
+		var channel = pusher.subscribe("loan_<%= params[:id] %>");
+		channel.bind('done', function(data) {
+			alert('asdf');
+		  location.reload();
+		});
+		channel.bind('error', function(data) {
+		  alert("Error " + data.error)
+		});
+
+
+</script>
