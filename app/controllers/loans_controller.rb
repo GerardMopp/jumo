@@ -21,6 +21,9 @@ class LoansController < ApplicationController
 
 	def show
 		@loan = Loan.find_by_id(params[:id])
+		unless @loan.output.present?
+			LoanWorker.perform_async(params[:id])
+		end
 	end
 
  private

@@ -1,11 +1,11 @@
 class LoanWorker
   include Sidekiq::Worker
 
-  def perform(*args)
-    loan = Loan.find_by_id(args[0])
+  def perform(loan_id)
+    @loan = Loan.find_by_id(loan_id)
     begin
       hash = {}
-      SmarterCSV.process(loan.input.path, {}) do |row|
+      SmarterCSV.process(open(@loan.input.url), {}) do |row|
         network = format_header(row[0][:network])
         month = Date.parse(format_header(row[0][:date])).strftime('%B')
         product = format_header(row[0][:product])
@@ -24,16 +24,20 @@ class LoanWorker
       end
 
       File.open(full_filename) do |f|
-        loan.output = f
+        @loan.output = f
       end
       
-      loan.save!
-      Pusher["loan_#{loan.id}"].trigger('done', {
+      @loan.save!
+
+      check_my_channel(loan_id)
+      Pusher["loan_#{@loan.id}"].trigger('done', {
         :done => true
       })
     rescue Exception => e
-      Pusher["loan_#{loan.id}"].trigger('error', {
-        :error => e
+      
+      check_my_channel(loan_id)
+      Pusher["loan_#{@loan.id}"].trigger('error', {
+        :error => e.message
       })
     raise e 
     end
@@ -41,6 +45,19 @@ class LoanWorker
 
   def format_header(value)
   	value.gsub("'", '')
+  end
+
+  def check_my_channel(loan_id)
+    counter = 0
+    begin
+      sleep 1
+      counter = counter + 1
+      if counter >= 29
+        return  nil
+      end
+      response = Pusher.get("/channels/loan_#{loan_id}")
+    end while !response[:occupied]
+    response
   end
 
 end

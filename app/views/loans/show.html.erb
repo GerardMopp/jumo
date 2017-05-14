@@ -1,7 +1,7 @@
 
 <% unless @loan.output.present? %>
 	<h3>Processing File</h3>
-	<%= image_tag("rolling") %>
+	<%= image_tag("rolling.gif") %>
 	<br>
 	<br>
 <% end %>
@@ -19,7 +19,6 @@
 		var pusher = new Pusher('<%= Pusher.key %>'); // uses your APP KEY
 		var channel = pusher.subscribe("loan_<%= params[:id] %>");
 		channel.bind('done', function(data) {
-			alert('asdf');
 		  location.reload();
 		});
 		channel.bind('error', function(data) {

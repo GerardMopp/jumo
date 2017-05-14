@@ -1,2 +1,2 @@
-web: bundle exec puma -p $PORT -e $RACK_ENV
+web: puma -p $PORT -C config/puma.rb
 worker: bundle exec sidekiq

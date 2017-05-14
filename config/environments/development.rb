@@ -38,7 +38,4 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-
-  ENV["PUSHER_SOCKET_URL"]='ws://ws.pusherapp.com/app/e07589285fa9e9b3e65e'
-  ENV["PUSHER_URL"]="http://e07589285fa9e9b3e65e:9f9c31e304663a444cfa@api.pusherapp.com/apps/339131"
 end
