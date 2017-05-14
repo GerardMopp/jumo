@@ -57,7 +57,7 @@ gem 'sinatra', :require => nil    # For the sidekiq web UI
 gem 'pusher'
 
 gem 'carrierwave', '~> 1.0'
-gem 'fog'
+gem 'fog-aws'
 gem 'smarter_csv'
 
 gem 'bootstrap-sass'
