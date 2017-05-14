@@ -51,7 +51,7 @@ group :production do
  gem 'pg'
 end
 
-
+gem 'puma'
 gem 'sidekiq', '5.0.0'
 gem 'sinatra', :require => nil    # For the sidekiq web UI
 gem 'pusher'
